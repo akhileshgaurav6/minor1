@@ -1,6 +1,7 @@
 package com.gfg.minor1.controller;
 
 import com.gfg.minor1.exception.TxnException;
+import com.gfg.minor1.model.Student;
 import com.gfg.minor1.request.TxnCreateRequest;
 import com.gfg.minor1.request.TxnReturnRequest;
 import com.gfg.minor1.response.GenericResponse;
@@ -9,6 +10,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,7 +23,12 @@ public class TxnController {
 
     @PostMapping("/create")
     public ResponseEntity<GenericResponse<String>> createTxn(@RequestBody @Valid TxnCreateRequest txnCreateRequest) throws TxnException {
-        String txnId = txnService.create(txnCreateRequest);
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+        Student student = (Student) authentication.getPrincipal();
+
+
+        String txnId = txnService.create(txnCreateRequest, student);
 
         GenericResponse<String> response  = new GenericResponse<>(txnId, "", "success", "200");
 

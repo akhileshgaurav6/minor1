@@ -6,6 +6,7 @@ import com.gfg.minor1.model.Operator;
 import com.gfg.minor1.request.BookCreateRequest;
 import com.gfg.minor1.response.GenericResponse;
 import com.gfg.minor1.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/create")
-    public Book createBook(@RequestBody BookCreateRequest bookCreateRequest){
+    public Book createBook(@RequestBody @Valid BookCreateRequest bookCreateRequest){
         //validation can here
         return bookService.createBook(bookCreateRequest);
 

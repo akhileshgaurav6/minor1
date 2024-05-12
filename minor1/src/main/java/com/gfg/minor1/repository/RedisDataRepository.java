@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Repository
 public class RedisDataRepository {
@@ -26,11 +27,14 @@ public class RedisDataRepository {
     }
 
     public void setBookToRedisByBookNo(Book book) {
+
         redisTemplate.opsForValue().set(BOOK_KEY+book.getBookNo(), book);
+//        redisTemplate.expire(BOOK_KEY+book.getBookNo(),10, TimeUnit.MINUTES);
     }
 
     public void setBookToRedisByBookType(Book book) {
         redisTemplate.opsForList().leftPush(BOOK_KEY+book.getType(),book);
+//        redisTemplate.expire(BOOK_KEY+book.getType(),10, TimeUnit.MINUTES);
     }
 
 

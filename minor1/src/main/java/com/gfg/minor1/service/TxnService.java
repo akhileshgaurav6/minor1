@@ -52,10 +52,10 @@ public class TxnService {
     }
 
     @Transactional(rollbackFor = {TxnException.class})
-    public String create(TxnCreateRequest txnCreateRequest) throws TxnException {
+    public String create(TxnCreateRequest txnCreateRequest, Student student) throws TxnException {
         // 1 ) want to see if student is valid or not
 
-        Student studentFromDB = filterStudent(StudentFilterType.CONTACT, Operator.EQUALS,txnCreateRequest.getStudentContact());
+        Student studentFromDB = filterStudent(StudentFilterType.CONTACT, Operator.EQUALS,student.getPhoneNo());
         Book bookFromLib = filterBook(FilterType.BOOK_NO, Operator.EQUALS, txnCreateRequest.getBookNo());
 
         if(bookFromLib.getStudent()!=null){

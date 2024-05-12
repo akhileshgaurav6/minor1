@@ -11,8 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 public class TxnCreateRequest {
 
-    @NotBlank(message = "student contact should not be blank")
-    private String studentContact;
+//    @NotBlank(message = "student contact should not be blank")
+//    private String studentContact;
 
     @NotBlank(message = "book no should not be blank")
     private String bookNo;
